@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appExample]'
@@ -6,7 +6,19 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
 export class ExampleDirective {
 
   constructor(private elementRef: ElementRef, private render: Renderer2) {
-    render.setStyle(elementRef.nativeElement, 'backgroundColor', 'orange')
+    this.setBgColor('aqua')
+   }
+
+   setBgColor(color: string) {
+     this.render.setStyle(this.elementRef.nativeElement, 'backgroundColor', color)
+   }
+
+   @HostListener('mouseenter') onMouseEnter() {
+     this.setBgColor('orange')
+   }
+
+   @HostListener('mouseleave') onMouseLeave() {
+     this.setBgColor('yellow')
    }
 
 }
